@@ -30,8 +30,11 @@ ruleset lab2 {
   }
   rule count_user {
     select when pageview ".*" setting ()
-    if ent:visit_count < 6 then
-      notify("You have visited", ent:visit_count)
+    pre {
+      count = ent:visit_count + 1;
+    }
+    if ent:visit_count < 5 then
+      notify("You have visited", count)
     fired {
       ent:visit_count += 1 from 1;
     }
