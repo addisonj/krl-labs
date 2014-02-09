@@ -22,7 +22,7 @@ ruleset lab2 {
     }
     // Display notification that will not fade.
     {
-      notify("Hello", query_param);
+      notify("Hello", query_param || "Monkey");
     }
   }
 }
