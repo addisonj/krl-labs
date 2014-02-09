@@ -18,11 +18,16 @@ ruleset lab2 {
   rule query_param {
     select when pageview ".*" setting ()
     pre {
-      query_param = page:url("query");
+      query_params = page:url("query");
+      extract_param = function(qps, param_name) {
+        ex = ("/.*" + param_name + "=(\w*)&?").as("regexp")
+        qps.extract(ex)
+      };
+      name_param = extract_param(query_params, "name")
     }
     // Display notification that will not fade.
     {
-      notify("Hello", query_param || "Monkey");
+      notify("Hello", name_param || "Monkey");
     }
   }
 }
