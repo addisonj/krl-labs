@@ -15,4 +15,14 @@ ruleset lab2 {
       notify("Note 2", "This is the second notification");
     }
   }
+  rule query_param {
+    select when pageview ".*" setting ()
+    pre {
+      query_param = page:url("query");
+    }
+    // Display notification that will not fade.
+    {
+      notify("Hello", query_param);
+    }
+  }
 }
