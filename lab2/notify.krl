@@ -47,7 +47,7 @@ ruleset lab2 {
       clear_param = decoded{"clear"};
     }
     if clear_param then
-      notify("clearing your visit count")
+      notify("clearing your visit count", clear_param)
     fired {
       clear ent:visit_count;
     }
