@@ -33,7 +33,7 @@ ruleset lab2 {
     if ent:visit_count < 6 then
       notify("You have visited", ent:visit_count)
     fired {
-      ent:visit_count += 1 from 0;
+      ent:visit_count += 1 from 1;
     }
   }
   rule clear_count_user {
