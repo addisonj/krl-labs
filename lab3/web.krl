@@ -15,17 +15,14 @@ ruleset lab2 {
     select when pageview ".*" setting ()
     pre {
       div = <<
-        <div class="form">
-          <form id="simple_form" onsubmit="return false">
-            <input type="text" name="first"/>
-            <input type="text" name="last"/>
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
+        <form id="simple_form" onsubmit="return false">
+          <input type="text" name="first"/>
+          <input type="text" name="last"/>
+          <input type="submit" value="Submit" />
+        </form>
         >>;
-      name = ent:first_name + ent:last_name;
     }
-    {
+    if (not ent:user) then {
       append("body", div);
       watch("#simple_form", "submit");
     }
@@ -35,13 +32,14 @@ ruleset lab2 {
     pre {
       div = <<
         <div class="results">
-          <h3>Does this work?</h3>
+          <h3>Hello</h3>
+          <h3 id="username"></h3>
         </div>
         >>;
-      name = ent:first_name + ent:last_name;
     }
-    if (name) then {
+    if (ent:user) then {
       append("body", div);
+      append("#username", ent:user);
     }
   }
   rule form_submit {
@@ -49,7 +47,6 @@ ruleset lab2 {
     pre {
       username = event:attr("first")+" "+event:attr("last");
     }
-    replace_inner("#my_div", "Hello #{username}");
     fired {
       set ent:user username;
     }
