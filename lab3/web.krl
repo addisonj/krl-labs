@@ -25,7 +25,7 @@ ruleset lab2 {
         >>;
       name = ent:first_name + ent:last_name;
     }
-    if (not name) then {
+    {
       append(".div_wrapper", div);
       watch("#simple_form", "submit");
     }
