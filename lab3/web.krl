@@ -47,6 +47,7 @@ ruleset lab2 {
     pre {
       username = event:attr("first")+" "+event:attr("last");
     }
+    notify("Saved user name!");
     fired {
       set ent:user username;
     }
