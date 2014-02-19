@@ -26,7 +26,7 @@ ruleset lab2 {
       name = ent:first_name + ent:last_name;
     }
     {
-      append(".div_wrapper", div);
+      append("body", div);
       watch("#simple_form", "submit");
     }
   }
@@ -41,7 +41,7 @@ ruleset lab2 {
       name = ent:first_name + ent:last_name;
     }
     if (name) then {
-      append(".div_wrapper", div);
+      append("body", div);
     }
   }
   rule form_submit {
