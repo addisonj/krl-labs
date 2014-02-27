@@ -38,9 +38,9 @@ ruleset lab4 {
     select when web submit "#simple_form"
     pre {
       movie = event:attr("title");
-      mj = get_rt(movie);
+      mj = get_rt(movie).klog("what did we get back?");
     }
-    if (!mj.isnull()) then {
+    if (mj.typeof() == "map") then {
       emit <<
         console.log(mj);
         >>;
