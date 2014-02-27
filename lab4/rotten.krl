@@ -12,11 +12,8 @@ ruleset lab4 {
   dispatch {
   }
   global {
-    build_url = function(title) {
-      "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=uaxxdhszngfsw96wxs6hx8hw&page_limit=1&q=" + uri:escape(title)
-    };
     get_rt = function(title) {
-      http:get(build_url(title)).pick("$.content").decode().pick("$.movies[0]")
+      http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=uaxxdhszngfsw96wxs6hx8hw&page_limit=1&q=" + uri:escape(title)).pick("$.content").decode().pick("$.movies[0]")
     };
   }
   rule show_form {
