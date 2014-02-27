@@ -40,7 +40,7 @@ ruleset lab4 {
       movie = event:attr("title");
       mj = get_rt(movie);
     }
-    if (mj) then {
+    if (mj.typeof() == "map") then {
       emit <<
         console.log(mj);
         >>;
