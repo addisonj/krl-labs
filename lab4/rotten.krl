@@ -26,6 +26,7 @@ ruleset lab4 {
         <h5>Enter a movie title!</h5>
         <form id="simple_form" onsubmit="return false">
           <input type="text" name="title"/>
+          <input type="submit" value="Submit" />
         </form>
         <div id="results"></div>
       >>;
