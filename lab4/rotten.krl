@@ -45,7 +45,7 @@ ruleset lab4 {
         console.log(mj);
         >>;
       notify("getting results");
-      replace_inner("#results", mj);
+      replace_inner("#results", "I Should have results!");
     }
   }
   rule process_error {
