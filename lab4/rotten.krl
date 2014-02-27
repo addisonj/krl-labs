@@ -39,12 +39,15 @@ ruleset lab4 {
     pre {
       movie = event:attr("title");
       mj = get_rt(movie);
+      my_html = <<
+        <img src='#{m.pick("$.posters.thumbnail")}'>
+        <h3>#{m.pick("$.title")} - #{m.pick("$.year")}<h3><br />
+        <p>Synopsis: #{m.pick("$.synopsis")}</p><br />
+        <p>Critic Score: #{m.pick("$.ratings.critics_score")} - #{m.pick("$.ratings.critics_rating")}</p>
+        >>;
     }
     if (mj >< "title") then {
-      emit <<
-        console.log(mj);
-        >>;
-      replace_inner("#results", mj.pick("$.title"));
+      replace_inner("#results", my_html);
     }
 
     notfired {
