@@ -48,4 +48,14 @@ ruleset lab4 {
       replace_inner("#results", mj);
     }
   }
+  rule process_error {
+    select when system error
+    pre{
+      genus = event:attr("genus");
+      species = event:attr("species");
+    }
+    {
+      notify("had an error" + genus + species);
+    }
+  }
 }
