@@ -38,9 +38,9 @@ ruleset lab4 {
     select when web submit "#simple_form"
     pre {
       movie = event:attr("title");
-      mj = get_rt(movie).klog("what did we get back?");
+      mj = get_rt(movie);
     }
-    if (mj.length() == 0) then {
+    if (mj >< "title") then {
       emit <<
         console.log(mj);
         >>;
