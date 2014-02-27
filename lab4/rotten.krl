@@ -38,7 +38,7 @@ ruleset lab4 {
     select when web submit "#simple_form"
     pre {
       movie = event:attr("title");
-      mj = get_rt(movie);
+      m = get_rt(movie);
       my_html = <<
         <img src='#{m.pick("$.posters.thumbnail")}'>
         <h3>#{m.pick("$.title")} - #{m.pick("$.year")}<h3><br />
