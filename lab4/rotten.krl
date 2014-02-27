@@ -41,6 +41,9 @@ ruleset lab4 {
       mj = get_rt(movie);
     }
     {
+      emit <<
+        console.log(mj);
+        >>;
       notify("getting results");
       replace_inner("#results", mj);
     }
