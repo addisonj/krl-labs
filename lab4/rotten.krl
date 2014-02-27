@@ -40,13 +40,20 @@ ruleset lab4 {
       movie = event:attr("title");
       mj = get_rt(movie);
     }
-    {
+    if (mj) then {
       emit <<
         console.log(mj);
         >>;
-      notify("getting results");
-      replace_inner("#results", "I Should have results!");
+      replace_inner("#results", mj.pick("$.title"));
     }
+
+    notfired {
+      raise explicit event no_results;
+    }
+  }
+  rule no_results {
+    select when explicit no_results
+    replace_inner("#results", "Couldn't find any results");
   }
   rule process_error {
     select when system error
