@@ -41,7 +41,7 @@ ruleset lab4 {
       m = get_rt(movie);
     }
     if (m >< "title") then {
-      replace_inner("#results", "<img src='" + m.pick("$.posters.thumbnail") + "'><h3>" + m.pick("$.title") +" - " + m.pick("$.year") + "<h3><br /><p>Synopsis: " + m.pick("$.synopsis") + "</p><br /><p>Critic Score: " + m.pick("$.ratings.critics_score") + " - " + m.pick("$.ratings.critics_rating") + "</p>");
+      replace_inner("#results", "<img src='" + m.pick("$.posters.thumbnail") + "'><h3>" + m.pick("$.title") +" - " + m.pick("$.year") + "</h3><br /><p>Synopsis: " + m.pick("$.synopsis") + "</p><br /><p>Critic Score: " + m.pick("$.ratings.critics_score") + " - " + m.pick("$.ratings.critics_rating") + "</p>");
     }
 
     notfired {
