@@ -40,7 +40,7 @@ ruleset lab4 {
       movie = event:attr("title");
       mj = get_rt(movie).klog("what did we get back?");
     }
-    if (mj.typeof() == "map") then {
+    if (mj.length() != 0) then {
       emit <<
         console.log(mj);
         >>;
