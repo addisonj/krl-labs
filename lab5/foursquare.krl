@@ -61,4 +61,10 @@ ruleset lab5 {
       replace_inner("#checkins", check_html);
     }
   }
+  rule display_empty {
+    select when web cloudAppSelected
+    if (!ent:venue_name) then {
+      replace_inner("#checkins", "No checkins!");
+    }
+  }
 }
