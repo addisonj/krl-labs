@@ -34,7 +34,7 @@ ruleset lab5 {
   rule process_fs_checkin {
     select when foursquare checkin
     pre {
-      checkin = event:attrs();
+      checkin = event:attr("checkin").decode();
     }
     every {
       replace_inner("#status", "Just got a checkin!");
