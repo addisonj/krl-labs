@@ -34,13 +34,13 @@ ruleset lab5 {
   rule process_fs_checkin {
     select when foursquare checkin
     pre {
-      checkin = event:attr("checkin");
+      checkin = event:attrs();
     }
     every {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
-      set ent:raw checkin;
+      set ent:raw checkin.encode();
       set ent:check_type check.typeof();
       set ent:venue_name checkin.pick("$.venue.name");
       set ent:city checkin.pick("$.venue.location.city");
