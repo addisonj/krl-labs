@@ -53,7 +53,7 @@ ruleset lab5 {
   rule display_checkin {
     select when web cloudAppSelected
     pre {
-      raw = ent:raw;
+      raw = ent:raw.encode();
       venue_name = ent:venue_name;
       city = ent:city;
       shout = ent:shout;
