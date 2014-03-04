@@ -36,16 +36,20 @@ ruleset lab5 {
     pre {
       checkinRaw = event:attr("checkin");
       checkin = checkinRaw.decode();
+      venue_name = checkin.pick("$.venue.name");
+      city = checkin.pick("$.venue.location.city");
+      shout = checkin.pick("$.shout");
+      created_at = checkin.pick("$.createdAt");
     }
     every {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
       set ent:checkin checkin;
-      set ent:venue_name checkin.pick("$.venue.name");
-      set ent:city checkin.pick("$.venue.location.city");
-      set ent:shout checkin.pick("$.shout");
-      set ent:created_at checkin.pick("$.createdAt");
+      set ent:venue_name venue_name;
+      set ent:city city;
+      set ent:shout shout;
+      set ent:created_at created_at;
     }
   }
   rule display_checkin {
