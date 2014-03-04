@@ -47,13 +47,17 @@ ruleset lab5 {
   rule display_checkin {
     select when web cloudAppSelected
     pre {
+      venue_name = ent:venue_name;
+      city = ent:city;
+      shout = ent:shout;
+      created_at = ent:created_at;
       check_html = <<
-        <h3>You checked into #{ent:venue_name} in #{ent:city}</h3>
-        <p>You shouted #{ent:shot}</p>
-        <p>This happened on #{ent:created_at}</p>
-      >>:
+        <h3>You checked into #{venue_name} in #{city}</h3>
+        <p>You shouted #{shout}</p>
+        <p>This happened on #{created_at}</p>
+      >>;
     }
-    if (ent:venue_name) {
+    if (ent:venue_name) then {
       replace_inner("#checkins", check_html);
     }
   }
