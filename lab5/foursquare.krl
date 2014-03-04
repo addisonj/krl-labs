@@ -36,7 +36,12 @@ ruleset lab5 {
     pre {
       checkin = event:attr("checkin");
     }
-    replace_inner("#status", "Just got a checkin!");
+    every {
+      emit <<
+        console.log("got the event", checkin);
+        >>;
+      replace_inner("#status", "Just got a checkin!");
+    }
     fired {
       set ent:raw checkin;
       set ent:venue_name checkin.pick("$.venue.name");
