@@ -57,13 +57,16 @@ ruleset lab5 {
         <p>This happened on #{created_at}</p>
       >>;
     }
-    if (ent:venue_name) then {
+    if (venue_name) then {
       replace_inner("#checkins", check_html);
     }
   }
   rule display_empty {
     select when web cloudAppSelected
-    if (!ent:venue_name) then {
+    pre {
+      venue_name = ent:venue_name;
+    }
+    if (venue_name.isnull()) then {
       replace_inner("#checkins", "No checkins!");
     }
   }
