@@ -43,7 +43,7 @@ ruleset lab5 {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
-      set ent:raw checkin;
+      set ent:raw checkin.encode();
       set ent:venue_name checkin.pick("$.venue.name");
       set ent:city checkin.pick("$.venue.location.city");
       set ent:shout checkin.pick("$.shout");
