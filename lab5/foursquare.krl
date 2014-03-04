@@ -34,14 +34,14 @@ ruleset lab5 {
   rule process_fs_checkin {
     select when foursquare checkin
     pre {
-      checkin = event:attr("checkin").decode();
+      checkinRaw = event:attr("checkin");
+      checkin = checkinRaw.decode();
     }
     every {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
-      set ent:raw checkin.encode();
-      set ent:check_type check.typeof();
+      set ent:checkin checkin;
       set ent:venue_name checkin.pick("$.venue.name");
       set ent:city checkin.pick("$.venue.location.city");
       set ent:shout checkin.pick("$.shout");
@@ -51,8 +51,7 @@ ruleset lab5 {
   rule display_checkin {
     select when web cloudAppSelected
     pre {
-      typeof_thing = ent:check_type;
-      raw = ent:raw;
+      checkin = ent:checkin;
       venue_name = ent:venue_name;
       city = ent:city;
       shout = ent:shout;
@@ -65,8 +64,7 @@ ruleset lab5 {
     }
     if (venue_name) then {
       emit <<
-        console.log("trying to log", raw);
-        console.log("its type", typeof_thing);
+        console.log("trying to log", checkin);
       >>;
       replace_inner("#checkins", check_html);
     }
