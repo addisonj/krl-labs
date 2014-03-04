@@ -43,7 +43,7 @@ ruleset lab5 {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
-      set ent:raw checkin.encode();
+      set ent:raw checkin;
       set ent:venue_name checkin.pick("$.venue.name");
       set ent:city checkin.pick("$.venue.location.city");
       set ent:shout checkin.pick("$.shout");
@@ -53,7 +53,7 @@ ruleset lab5 {
   rule display_checkin {
     select when web cloudAppSelected
     pre {
-      raw = ent:raw.encode();
+      raw = ent:raw;
       venue_name = ent:venue_name;
       city = ent:city;
       shout = ent:shout;
