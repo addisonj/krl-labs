@@ -55,7 +55,8 @@ ruleset lab5 {
   rule display_checkin {
     select when web cloudAppSelected
     pre {
-      checkin = ent:checkin.encode();
+      checkin = ent:checkin;
+      checkStr = checkin.encode();
       venue_name = ent:venue_name;
       city = ent:city;
       shout = ent:shout;
@@ -68,7 +69,7 @@ ruleset lab5 {
     }
     if (venue_name) then {
       emit <<
-        console.log("trying to log", checkin);
+        console.log("trying to log", checkStr);
       >>;
       replace_inner("#checkins", check_html);
     }
