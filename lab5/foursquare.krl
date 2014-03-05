@@ -35,16 +35,21 @@ ruleset lab5 {
     select when foursquare checkin
     pre {
       checkin = event:attr("checkin").decode();
+      checkin = checkinRaw.decode();
+      venue_name = checkin.pick("$.venue.name");
+      city = checkin.pick("$.venue.location.city");
+      shout = checkin.pick("$.shout");
+      created_at = checkin.pick("$.createdAt");
     }
     every {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
       set ent:checkin ;
-      set ent:venue_name checkin.pick("$.venue.name");
-      set ent:city checkin.pick("$.venue.location.city");
-      set ent:shout checkin.pick("$.shout");
-      set ent:created_at checkin.pick("$.createdAt");
+      set ent:venue_name venue_name;
+      set ent:city city;
+      set ent:shout shout;
+      set ent:created_at created_at;
     }
   }
   rule display_checkin {
@@ -71,7 +76,6 @@ ruleset lab5 {
           var d = new Date();
           d.setTime(created_at);
           $K('#created-text').append(d.toString());
-
         >>;
       replace_inner("#checkins", check_html);
     }
