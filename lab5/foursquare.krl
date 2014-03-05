@@ -34,43 +34,45 @@ ruleset lab5 {
   rule process_fs_checkin {
     select when foursquare checkin
     pre {
-      checkinRaw = event:attr("checkin");
-      checkin = checkinRaw.decode();
-      venue_name = checkin.pick("$.venue.name");
-      city = checkin.pick("$.venue.location.city");
-      shout = checkin.pick("$.shout");
-      created_at = checkin.pick("$.createdAt");
+      checkin = event:attr("checkin").decode();
     }
     every {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
-      set ent:checkin checkin;
-      set ent:venue_name venue_name;
-      set ent:city city;
-      set ent:shout shout;
-      set ent:created_at created_at;
+      set ent:checkin ;
+      set ent:venue_name checkin.pick("$.venue.name");
+      set ent:city checkin.pick("$.venue.location.city");
+      set ent:shout checkin.pick("$.shout");
+      set ent:created_at checkin.pick("$.createdAt");
     }
   }
   rule display_checkin {
     select when web cloudAppSelected
     pre {
       checkin = ent:checkin;
-      checkStr = checkin.encode();
       venue_name = ent:venue_name;
       city = ent:city;
       shout = ent:shout;
       created_at = ent:created_at;
       check_html = <<
         <h3>You checked into #{venue_name} in #{city}</h3>
-        <p>You shouted #{shout}</p>
-        <p>This happened on #{created_at}</p>
+        <p>You shouted <span id="shout-text"></span></p>
+        <p>This happened on <span id="created-text"></span></p>
       >>;
     }
     if (venue_name) then {
       emit <<
-        console.log("trying to log", checkStr);
-      >>;
+          if (shout && shout.length) {
+            $K('#shout-text').append(shout);
+          } else {
+            $K('#shout-text').append("nothing, how boring!");
+          }
+          var d = new Date();
+          d.setTime(created_at);
+          $K('#created-text').append(d.toString());
+
+        >>;
       replace_inner("#checkins", check_html);
     }
   }
