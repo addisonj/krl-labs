@@ -34,7 +34,7 @@ ruleset lab5 {
   rule process_fs_checkin {
     select when foursquare checkin
     pre {
-      checkin = event:attr("checkin").decode();
+      checkinRaw = event:attr("checkin").decode();
       checkin = checkinRaw.decode();
       venue_name = checkin.pick("$.venue.name");
       city = checkin.pick("$.venue.location.city");
@@ -45,7 +45,7 @@ ruleset lab5 {
       replace_inner("#status", "Just got a checkin!");
     }
     fired {
-      set ent:checkin ;
+      set ent:checkin checkin;
       set ent:venue_name venue_name;
       set ent:city city;
       set ent:shout shout;
@@ -67,6 +67,7 @@ ruleset lab5 {
       >>;
     }
     if (venue_name) then {
+      replace_inner("#checkins", check_html);
       emit <<
           if (shout && shout.length) {
             $K('#shout-text').append(shout);
@@ -77,7 +78,6 @@ ruleset lab5 {
           d.setTime(created_at);
           $K('#created-text').append(d.toString());
         >>;
-      replace_inner("#checkins", check_html);
     }
   }
   rule display_empty {
