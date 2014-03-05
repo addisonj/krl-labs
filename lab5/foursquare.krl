@@ -75,6 +75,7 @@ ruleset lab5 {
             $K('#shout-text').append("nothing, how boring!");
           }
           var d = new Date();
+          console.log(created_at);
           d.setTime(created_at);
           $K('#created-text').append(d.toString());
         >>;
