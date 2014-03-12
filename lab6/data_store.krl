@@ -13,11 +13,12 @@ ruleset lab6 {
   rule add_location_item {
     select when pds new_location_data
     pre {
-      key = event:attr("key");
+      k = event:attr("key");
       val = event:attr("val");
     }
+    send_directive(k) with location = val;
     always {
-      set ent:locations{key} val;
+      set ent:locations{k} val;
     }
   }
 }
