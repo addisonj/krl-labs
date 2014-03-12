@@ -31,7 +31,7 @@ ruleset lab6_view {
     select when web cloudAppSelected
     pre {
       checkin = Location:get_location_data("fs_checkin");
-      venue_name = checkin{"venue_name"};
+      venue_name = checkin{"venue"};
       city = checkin{"city"};
       shout = checkin{"shout"};
       created_at = checkin{"created_at"};
