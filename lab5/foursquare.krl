@@ -50,6 +50,14 @@ ruleset lab5 {
       set ent:city city;
       set ent:shout shout;
       set ent:created_at created_at;
+      raise pds event new_location_data
+        with key = 'fs_checkin'
+        and value = {
+          "venue" : venue_name,
+          "city" : city,
+          "shout" : shout,
+          "createdAt" : created_at
+        };
     }
   }
   rule display_checkin {
