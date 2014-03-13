@@ -14,7 +14,7 @@ ruleset lab6 {
     select when pds new_location_data
     pre {
       k = event:attr("key");
-      val = event:attr("val");
+      val = event:attr("value");
     }
     send_directive(k) with location = val;
     always {
