@@ -7,7 +7,7 @@ ruleset lab6_view {
     logging on
     use module a169x701 alias CloudRain
     use module a41x186  alias SquareTag
-    use module b505196x4 alias Location
+    use module b505196x5 alias Location
   }
   dispatch {
   }
