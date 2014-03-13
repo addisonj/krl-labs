@@ -43,7 +43,7 @@ ruleset lab5 {
     }
     every {
       replace_inner("#status", "Just got a checkin!");
-      send_directive("venue name") with checkin = venue_name;
+      send_directive("venue_name") with checkin = venue_name;
     }
     fired {
       set ent:checkin checkin;

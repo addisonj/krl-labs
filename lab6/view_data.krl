@@ -41,7 +41,7 @@ ruleset lab6_view {
         <p>This happened on <span id="created-text"></span></p>
       >>;
     }
-    every {
+    if (venue_name) then {
       replace_inner("#checkins", check_html);
       emit <<
           console.log(checkin)
