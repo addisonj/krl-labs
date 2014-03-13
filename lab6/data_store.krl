@@ -18,7 +18,7 @@ ruleset lab6 {
     }
     send_directive(k) with location = val;
     always {
-      set ent:locations{k} val;
+      set ent:locations{event:attr("key")} event:attr("value");
     }
   }
 }
