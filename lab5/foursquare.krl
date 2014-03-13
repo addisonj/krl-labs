@@ -51,7 +51,7 @@ ruleset lab5 {
       set ent:shout shout;
       set ent:created_at created_at;
       raise pds event new_location_data
-        with key = 'fs_checkin'
+        with key = "fs_checkin"
         and value = {
           "venue" : venue_name,
           "city" : city,
