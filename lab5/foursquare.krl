@@ -40,6 +40,8 @@ ruleset lab5 {
       city = checkin.pick("$.venue.location.city");
       shout = checkin.pick("$.shout");
       created_at = checkin.pick("$.createdAt");
+      lat = checkin.pick("$.venue.location.lat");
+      long = checkin.pick("$.venue.location.lng");
     }
     every {
       replace_inner("#status", "Just got a checkin!");
@@ -57,7 +59,9 @@ ruleset lab5 {
           "venue" : venue_name,
           "city" : city,
           "shout" : shout,
-          "createdAt" : created_at
+          "createdAt" : created_at,
+          "lat" : lat,
+          "long" : long
         };
     }
   }
