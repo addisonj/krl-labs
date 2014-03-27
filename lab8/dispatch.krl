@@ -48,7 +48,6 @@ ruleset lab8 {
   rule display_checkin {
     select when web cloudAppSelected
     pre {
-      checkin = ent:checkin;
       venue_name = ent:venue_name;
       city = ent:city;
       shout = ent:shout;
@@ -59,9 +58,10 @@ ruleset lab8 {
         <p>This happened on <span id="created-text"></span></p>
       >>;
     }
-    if (venue_name) then {
+    {
       replace_inner("#checkins", check_html);
       emit <<
+        console.log("YOOOOO", venue_name);
           if (shout && shout.length) {
             $K('#shout-text').append(shout);
           } else {
