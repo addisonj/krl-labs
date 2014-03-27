@@ -58,7 +58,7 @@ ruleset lab8 {
         <p>This happened on <span id="created-text"></span></p>
       >>;
     }
-    {
+    if (venue_name) then {
       replace_inner("#checkins", check_html);
       emit <<
         console.log("YOOOOO", venue_name);
@@ -78,7 +78,7 @@ ruleset lab8 {
     pre {
       venue_name = ent:venue_name;
     }
-    if (venue_name.isnull()) then {
+    if (!venue_name) then {
       replace_inner("#checkins", "No checkins!");
     }
   }
