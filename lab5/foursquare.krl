@@ -12,10 +12,22 @@ ruleset lab5 {
     //690BA504-A3B3-11E3-B2BD-307CD61CF0AC
     // full url
     // https://cs.kobj.net/sky/event/690BA504-A3B3-11E3-B2BD-307CD61CF0AC/1/foursquare/checkin
+    // second eci
+    // 9836415A-B550-11E3-9083-449AE71C24E1
+    // third eci
+    // C7D64E82-B550-11E3-9082-D2AEE058E56E
   }
   dispatch {
   }
   global {
+    subscriptions = [
+      {
+        "cid": "9836415A-B550-11E3-9083-449AE71C24E1"
+      },
+      {
+        "cid": "C7D64E82-B550-11E3-9082-D2AEE058E56E"
+      }
+    ];
   }
   rule load_view {
     select when web cloudAppSelected
@@ -63,6 +75,30 @@ ruleset lab5 {
           "lat" : lat,
           "long" : long
         };
+    }
+  }
+  rule dispatch_location {
+    select when foursquare checkin
+    foreach subscribers setting (subscriber)
+    pre {
+      checkinRaw = event:attr("checkin").decode();
+      checkin = checkinRaw.decode();
+      venue_name = checkin.pick("$.venue.name");
+      city = checkin.pick("$.venue.location.city");
+      shout = checkin.pick("$.shout");
+      created_at = checkin.pick("$.createdAt");
+      lat = checkin.pick("$.venue.location.lat");
+      long = checkin.pick("$.venue.location.lng");
+    }
+    every {
+      event:send(subscriber,"location","notification")
+          with attrs = {"venue_name" : venue_name,
+                        "city": city,
+                        "shout": shout,
+                        "created_at": created_at,
+                        "lat": lat,
+                        "long": long
+                        };
     }
   }
   rule display_checkin {
