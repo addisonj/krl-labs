@@ -20,7 +20,7 @@ ruleset lab5 {
   dispatch {
   }
   global {
-    subscriptions = [
+    subscribers = [
       {
         "cid": "9836415A-B550-11E3-9083-449AE71C24E1"
       },
