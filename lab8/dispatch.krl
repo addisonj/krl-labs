@@ -13,11 +13,11 @@ ruleset lab8 {
     select when location notification
     pre {
       venue_name = event:attr("venue_name");
-      city = event("city");
-      shout = event("shout");
-      created_at = event("created_at");
-      lat = event("lat");
-      long = event("long");
+      city = event:attr("city");
+      shout = event:attr("shout");
+      created_at = event:attr("created_at");
+      lat = event:attr("lat");
+      long = event:attr("long");
     }
     every {
       send_directive("venue_name") with checkin = venue_name;
